@@ -1,7 +1,6 @@
 package holidays
 
 import (
-	"log"
 	"time"
 
 	"github.com/vjeantet/eastertime"
@@ -94,15 +93,15 @@ func BlackFriday(year int, loc *time.Location) time.Time {
 }
 
 func ChristmasEve(year int, loc *time.Location) time.Time {
-	return Observed(time.Date(year, time.December, 12, 24, 0, 0, 0, loc))
+	return Observed(time.Date(year, time.December, 24, 12, 0, 0, 0, loc))
 }
 
 func Christmas(year int, loc *time.Location) time.Time {
-	return Observed(time.Date(year, time.December, 12, 25, 0, 0, 0, loc))
+	return Observed(time.Date(year, time.December, 25, 12, 0, 0, 0, loc))
 }
 
 func NewYearsEve(year int, loc *time.Location) time.Time {
-	return Observed(time.Date(year, time.December, 12, 31, 0, 0, 0, loc))
+	return Observed(time.Date(year, time.December, 31, 12, 0, 0, 0, loc))
 }
 
 func Holidays(year int, loc *time.Location) []time.Time {
@@ -126,10 +125,9 @@ func Holidays(year int, loc *time.Location) []time.Time {
 
 func IsHoliday(when time.Time) bool {
 	y, m, d := when.Date()
-	for i, h := range Holidays(when.Year(), when.Location()) {
+	for _, h := range Holidays(when.Year(), when.Location()) {
 		hy, hm, hd := h.Date()
 		if y == hy && m == hm && d == hd {
-			log.Printf("%s is a holiday (%d / %s)", when, i, h)
 			return true
 		}
 	}
